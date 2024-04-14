@@ -1,4 +1,4 @@
-﻿// CameraUndo.cpp : DLL アプリケーション用にエクスポートされる関数を定義します。
+// CameraUndo.cpp: Defines the functions exported for the DLL application.
 //
 
 #include "stdafx.h"
@@ -198,7 +198,7 @@ public:
         i = key_frame[i].next_index;
       }
     }
-    MessageBoxW(nullptr, L"アンドゥ機能でエラーが発生しました。\n現在のキーフレーム情報が取得できませんでした。", L"エラー", MB_OK);
+    MessageBoxW(nullptr, L"An error occurred in the undo function.\nThe current keyframe information could not be obtained.", L"Error", MB_OK);
     return { 0, key_frame[0] };
   }
 

@@ -14,15 +14,15 @@ namespace filesystem = std::experimental::filesystem;
 
 extern "C"
 {
-  // MMDのウィンドウハンドルを返します。
+  // Returns the MMD window handle.
   MMD_DLL_FUNC_API HWND getHWND();
 
-  // 重複しないWM_APP+X値を返します。
-  // すでにすべての値を使い切っている場合は-1を返します。
+// Return unique WM_APP+X values.
+   // Returns -1 if all values are already used.
   MMD_DLL_FUNC_API int createWM_APP_ID();
 
   /// <summary>
-  /// [mini, maxi]の区間領域を予約します。すでに使われている場合falseを返します。
+  /// [mini, maxi]Reserve the interval area for . Returns false if already used.
   /// </summary>
   /// <param name="mini">WM_APP &lt;= mini &lt;= WM_APP + 0x3FFF </param>
   /// <param name="maxi">WM_APP &lt;= maxi &lt;= WM_APP + 0x3FFF</param>
@@ -39,9 +39,9 @@ public:
   virtual ~MMDPluginDLL1() {}
 
   // callback
-  // すべて実際の関数が呼ばれる前にコールバックされる
+  // All are called back before the actual function is called
   /*
-  // 内部実装
+  // Internal implementation
   MMDPluginDLL1::QueryInterface(riid, ppvObj);
   return d3dDevice->QueryInterface(riid, ppvObj);
   */
@@ -289,9 +289,9 @@ struct MMDPluginDLL2 : public MMDPluginDLL1
 public:
 
   // callback
-  // すべて実際の関数が呼ばれ後にコールバックされる
+  // All actual functions are called and then called back
   /*
-  // 内部実装
+  // Internal implementation
   auto res = d3dDevice->QueryInterface(riid, ppvObj);
   MMDPluginDLL2::PostQueryInterface(riid, ppvObj, res);
 
@@ -541,55 +541,55 @@ struct MMDPluginDLL3 : public MMDPluginDLL2
 
 
   /// <summary>
-  /// すべてのDLLのオブジェクトを作成し終わったときに呼ばれる
+  /// Called when all DLL objects have been created
   /// </summary>
   virtual void start() {}
 
   /// <summary>
-  /// MMDが終了し、DLLのオブジェクトを解放する前に呼ばれる。
+  /// Called before MMD finishes and releases the DLL object。
   /// </summary>
   virtual void stop() {}
 
   /// <summary>
-  /// SetWindowsHookEx(WH_CALLWNDPROC)でフックしたプロシージャです。
+  /// SetWindowsHookEx(WH_CALLWNDPROC)This is the hooked procedure.
   /// </summary>
   /// <param name="param"></param>
   virtual void WndProc(const CWPSTRUCT* param) {}
 
   /// <summary>
-  /// SetWindowsHookEx(WH_MSGFILTER)でフックしたプロシージャです。
+  /// SetWindowsHookEx(WH_MSGFILTER)This is the hooked procedure.
   /// </summary>
   /// <param name="param"></param>
   virtual void MsgProc(int code, const MSG* param) {}
 
   /// <summary>
-  /// SetWindowsHookEx(WH_MOUSE)でフックしたプロシージャです。
+  /// SetWindowsHookEx(WH_MOUSE)This is the hooked procedure.
   /// </summary>
   /// <param name="param"></param>
   virtual void MouseProc(WPARAM wParam, const MOUSEHOOKSTRUCT* param) {}
 
   /// <summary>
-  /// SetWindowsHookEx(WH_GETMESSAGE)でフックしたプロシージャです。
+  /// SetWindowsHookEx(WH_GETMESSAGE)This is the hooked procedure.
   /// </summary>
   /// <param name="param"></param>
   virtual void GetMsgProc(int code, const MSG* param) {}
 
   /// <summary>
-  /// SetWindowsHookEx(WH_KEYBOARD)でフックしたプロシージャです。
+  /// SetWindowsHookEx(WH_KEYBOARD)This is the hooked procedure.
   /// </summary>
   /// <param name="param"></param>
   virtual void KeyBoardProc(WPARAM wParam, LPARAM lParam) {}
 
   /// <summary>
-  /// MMD側の呼び出しが制御できるプロシージャ
+  /// Procedures that can control calls on the MMD side
   /// </summary>
   /// <param name="hwnd"></param>
   /// <param name="uMsg"></param>
   /// <param name="wParam"></param>
   /// <param name="lParam"></param>
   /// <returns>
-  /// false : MMDのプロシージャも呼ばれます。LRESULTは無視されます
-  /// true  : MMDやその他のプラグインのプロシージャは呼ばれません。LRESULTが全体のプロシージャの戻り値として返されます。
+  /// false : MMD procedures are also called. LRESULT is ignored
+  /// true  : MMD and other plugin procedures are not called. LRESULT is returned as the entire procedure return value.
   /// </returns>
   virtual std::pair<bool, LRESULT> WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) { return { false,0 }; }
 };
@@ -742,17 +742,17 @@ namespace mmp
   {
     int frame_no;
     int pre_index;
-    int next_index; // 次のキーフレームがあるときに0以外になる
+    int next_index; // Becomes non-zero when next keyframe occurs
     float length;
     Float3 xyz;
     Float3 rxyz;
-    char hokan1_x[6]; // x, y, z, 回転, 距離, 視野角
+    char hokan1_x[6]; // x, y, z, rotation, distance, viewing angle
     char hokan1_y[6];
     char hokan2_x[6];
     char hokan2_y[6];
     int is_perspective;
     int view_angle;
-    int is_selected; // 1で選択している。0で選択していない
+    int is_selected; // 1 is selected. Not selected with 0
     int looking_model_index;
     int looking_bone_index;
   };
@@ -780,7 +780,7 @@ namespace mmp
     char name_jp[50];
     char name_en[50];
     char comment_jp[256];
-    char comment_en[292]; // もしかしたら別の領域に分かれてるかも
+    char comment_en[292]; // Maybe it's in a different area
     wchar_t file_path[256];
     BoneCurrentData* bone_current_data;
     int __unknown20[10];
@@ -859,10 +859,10 @@ namespace mmp
     int key_down;
     int key_left;
     int key_right;
-    int key_shift; // keyは0から3までの数値を取る。押している間は3になる。
+    int key_shift; // key takes a number from 0 to 3. While pressed, it becomes 3.
     int key_space;
     int key_f9;
-    int key_x_or_f11; // f11の場合は2になる
+    int key_x_or_f11; // For f11 it becomes 2
     int key_z;
     int key_c;
     int key_v;
@@ -899,7 +899,7 @@ namespace mmp
     int __unknown60[22];
     CameraKeyFrameData (&camera_key_frame)[10000];
     void* __unknown_pointer20[258];
-    MMDModelData* model_data[255]; // 起動時nullモデルを読み込むと順番にポインタが入る
+    MMDModelData* model_data[255]; // When a null model is loaded at startup, pointers are entered in order
     int select_model;
 
     enum class SelectBoneType : int
@@ -911,10 +911,10 @@ namespace mmp
       Move
     };
 
-    SelectBoneType select_bone_type; // 0:選択、1:BOX選択、2:カメラモード、3:回転、4:移動
+    SelectBoneType select_bone_type; // 0: Select, 1: BOX selection, 2: Camera mode, 3: Rotate, 4: Move
     int __unknown70[4];
     float __unknown71;
-    int mouse_over_move; // xyz回転(9,10,11)、xyz移動(12,13,14)
+    int mouse_over_move; // xyzrotate(9,10,11)、xyzmove(12,13,14)
     int __unknown80[17];
     int left_frame;
     int __unknown90;
@@ -946,8 +946,8 @@ namespace mmp
     auto pointer = (BYTE**) ((BYTE*) GetModuleHandleW(nullptr) + 0x1445F8);
     if ( IsBadReadPtr(pointer, sizeof(INT_PTR)) != 0 )
     {
-      std::wstring error = L"内部エラー\nポインタの読み込みに失敗しました\npointer=" + std::to_wstring((INT_PTR) pointer);
-      MessageBoxW(nullptr, error.c_str(), L"エラー", MB_OK);
+      std::wstring error = L"internal error\nFailed to read pointer\npointer=" + std::to_wstring((INT_PTR) pointer);
+      MessageBoxW(nullptr, error.c_str(), L"error", MB_OK);
       return nullptr;
     }
     return (MMDMainData*) *pointer;

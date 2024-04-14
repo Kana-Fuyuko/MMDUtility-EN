@@ -1,4 +1,4 @@
-# MMD Utility
+# MMD Utility English Source Code
 
 ## [Installation Method](https://github.com/oigami/MMDUtility/wiki/how_to_install)
 

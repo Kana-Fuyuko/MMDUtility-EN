@@ -1,4 +1,4 @@
-﻿// HideModel.cpp : DLL アプリケーション用にエクスポートされる関数を定義します。
+// HideModel.cpp: Defines the functions exported for the DLL application.
 //
 
 #include "stdafx.h"
@@ -28,7 +28,7 @@ public:
       };
 
     auto menu = utility->getUitilityMenu();
-    menu->AppendChild(L"選択モデル以外非表示", check);
+    menu->AppendChild(L"Hide Center Model", check);
     menu->AppendSeparator();
   }
 

@@ -1,4 +1,4 @@
-﻿// ViewSplit.cpp : DLL アプリケーション用にエクスポートされる関数を定義します。
+﻿// ViewSplit.cpp : DLL Define exported functions for your application.
 //
 #include "stdafx.h"
 #include "../MMDUtility/mmdplugin/mmd_plugin.h"
@@ -24,7 +24,7 @@ void println(std::ostream& ofs, A a, T ... t)
 struct Rect
 {
 private:
-  // 正規化済み
+  // Normalized
   float x_, y_, width_, height_;
   float scale_ = 1.0f;
 public:
@@ -236,14 +236,14 @@ public:
       CheckRadioButton(dialog_hwnd, is_fix_id[i], is_tracking_id[i], is_fix_id[i]);
       data_[i].camera_type = ViewData::CameraType::Fix;
     }
-    // ビューポートの設定
+    // Viewport settings
     data_[0].view = Rect(0, 0, 0.5f, 0.5f);
     data_[1].view = Rect(0.5f, 0, 0.5f, 0.5f);
     data_[2].view = Rect(0, 0.5f, 0.5f, 0.5f);
     data_[3].view = Rect(0.5f, 0.5f, 0.5f, 0.5f);
 
 
-    // カメラの設定
+    // Camera settings
     data_[0].camera.distance = 45.0f;
     data_[0].camera.lookat = { 0,10,0 };
     for ( auto& i : data_ )
@@ -266,12 +266,12 @@ public:
     {
       ofn.lStructSize = sizeof(OPENFILENAME);
       ofn.hwndOwner = hWnd;
-      ofn.lpstrInitialDir = szPath.c_str(); // 初期フォルダ位置
-      ofn.lpstrFile = szFile; // 選択ファイル格納
+      ofn.lpstrInitialDir = szPath.c_str(); // Initial folder location
+      ofn.lpstrFile = szFile; // Selected file storage
       ofn.nMaxFile = MAX_PATH;
       ofn.lpstrDefExt = TEXT(".txt");
-      ofn.lpstrFilter = TEXT("txtファイル(*.txt)\0*.txt\0");
-      ofn.lpstrTitle = TEXT("設定ファイルを保存します。");
+      ofn.lpstrFilter = TEXT("txtFile(*.txt)\0*.txt\0");
+      ofn.lpstrTitle = TEXT("Save the configuration file.");
       ofn.Flags = OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT;
     }
     if ( GetSaveFileName(&ofn) )
@@ -291,12 +291,12 @@ public:
     {
       ofn.lStructSize = sizeof(OPENFILENAME);
       ofn.hwndOwner = hWnd;
-      ofn.lpstrInitialDir = szPath.c_str(); // 初期フォルダ位置
-      ofn.lpstrFile = szFile; // 選択ファイル格納
+      ofn.lpstrInitialDir = szPath.c_str(); // Initial folder location
+      ofn.lpstrFile = szFile; // Selected file storage
       ofn.nMaxFile = MAX_PATH;
       ofn.lpstrDefExt = TEXT(".txt");
-      ofn.lpstrFilter = TEXT("txtファイル(*.txt)\0*.txt\0");
-      ofn.lpstrTitle = TEXT("設定ファイルを保存します。");
+      ofn.lpstrFilter = TEXT("txtFile(*.txt)\0*.txt\0");
+      ofn.lpstrTitle = TEXT("Save the configuration file.");
       ofn.Flags = OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT;
     }
     if ( GetSaveFileName(&ofn) )
@@ -308,7 +308,7 @@ public:
 
   void UpdateSettingMenu()
   {
-    // 既存のファイル一覧を除去
+    // Remove existing file list
     auto menu = GetDlgItem(dialog_hwnd, LOAD_MENU);
     int cnt = static_cast<int>(SendMessage(menu, CB_GETCOUNT, 0, 0));
     for ( int i = 0; i < cnt; i++ )
@@ -316,7 +316,7 @@ public:
       SendMessage(menu, CB_DELETESTRING, 0, 0);
     }
 
-    // 新しくファイル一覧を追加
+    // Add new file list
     const auto path = mmp::getDLLPath(g_module).parent_path() / L"split_view_setting";
     if ( filesystem::exists(path) == false )
     {
@@ -348,7 +348,7 @@ public:
           is_split_ = check_use_menu->isChecked();
           Button_SetCheck(GetDlgItem(dialog_hwnd, IS_USE_SPLIT_VIEW), is_split_);
         };
-      menu->AppendChild(L"画面分割", check_use_menu);
+      menu->AppendChild(L"Split Screen", check_use_menu);
     }
 
     {
@@ -358,7 +358,7 @@ public:
           check_camera_pos->reverseCheck();
           is_camera_right_bottom = check_camera_pos->isChecked();
         };
-      menu->AppendChild(L"カメラを右下にする", check_camera_pos);
+      menu->AppendChild(L"Move Camera To Bottom Right", check_camera_pos);
     }
 
     auto mainDlgProc = [](HWND hwnd, UINT msg, WPARAM wparam, LPARAM lParam)
@@ -453,7 +453,7 @@ public:
             ShowWindow(dialog_hwnd, SW_HIDE);
           }
         };
-      menu->AppendChild(L"画面分割設定ウィンドウ", form_dialog_);
+      menu->AppendChild(L"Split Screen Settings Window", form_dialog_);
       dialog_hwnd = CreateDialogParamW(g_module, MAKEINTRESOURCE(IDD_FORMVIEW), getHWND(), mainDlgProc, (LPARAM)this);
       Button_SetCheck(GetDlgItem(dialog_hwnd, IS_USE_SPLIT_VIEW), true);
       UpdateSettingMenu();
@@ -554,7 +554,7 @@ public:
         }
         if ( data.is_use_ == false ) return;
 
-        // TODO: シェーダに渡されているデータもできれば変えて、再生時も対応できるようにする。
+        // TODO: If possible, change the data passed to the shader so that it can also be handled during playback.
         auto w = DirectX::XMMatrixTranslationFromVector(data.camera.lookat);
         w *= rotate;
         D3DMATRIX tmp = toMatrix(DirectX::XMMatrixInverse(nullptr, w));
@@ -565,7 +565,7 @@ public:
         auto v = data.view.getViewport(back_viewport_);
         device_->SetViewport(&v);
 
-        // アルファブレンド設定
+        // Alpha blend settings
         DWORD is_alphablend, src_blend, dest_blend, src_alpha;
         device_->GetRenderState(D3DRS_ALPHABLENDENABLE, &is_alphablend);
         device_->GetRenderState(D3DRS_SRCBLEND, &src_blend);
@@ -608,7 +608,7 @@ public:
           IDirect3DVertexBuffer9* buffer;
           UINT offset, stride;
           device_->GetStreamSource(0, &buffer, &offset, &stride);
-          //頂点データ(v)を渡して描画する
+          //Pass vertex data (v) and draw
           device_->DrawPrimitiveUP(D3DPT_LINESTRIP, 4, pt, sizeof(D3DVERTEX));
           device_->SetFVF(fvf);
           device_->SetStreamSource(0, buffer, offset, stride);

@@ -1,201 +1,201 @@
 ﻿///////////////////////////////////////////////////////////////////////////
-// MMDExport.h Ver.0.07 2010/10/22 MikuMikuDance エクスポート関数用ヘッダ
+// MMDExport.h Ver.0.07 2010/10/22 MikuMikuDance Header for export function
 //
-// 出力関数のライブラリ：MMDExport.lib
+// Library of output functions：MMDExport.lib
 ///////////////////////////////////////////////////////////////////////////
-#ifndef __MMDEXPORT_H__								// 重複防止
+#ifndef __MMDEXPORT_H__								// Duplication prevention
 #define __MMDEXPORT_H__
 
-///////////////// _EXPORT定義  //////////////////
-//#define		_EXPORT	__declspec(dllexport)			// MMD本体用	(dll側ではコメントアウトする事)
-#define	_EXPORT	__declspec(dllimport)			// dll用		(dll側ではコメントアウトを外す事)
+///////////////// _EXPORT Definition //////////////////
+//#define		_EXPORT	__declspec(dllexport)			// For MMD itself (comment out on the dll side)
+#define	_EXPORT	__declspec(dllimport)			// For DLL		(Uncomment it on the dll side)
 #pragma comment(lib,"mmd/mmdexport")
 
-///////////// エクスポート関数 ////////////////
+///////////// Export Function ////////////////
 extern "C" {
-  _EXPORT	float			ExpGetFrameTime();				// フレーム時間の取得(sec) フレーム0を0secとして現在処理中の時間
-  _EXPORT	int				ExpGetPmdNum();					// PMDモデルの数
-  _EXPORT	char*			ExpGetPmdFilename(int);			// 引数1のPMDモデルファイル名(フルパス)	引数1は0～GetPmdNum-1
-  _EXPORT	int				ExpGetPmdOrder(int);			// 引数1のPMDモデル描画順番(※1)		引数1は0～GetPmdNum-1
-  _EXPORT	int				ExpGetPmdMatNum(int);			// 引数1のPMDモデルの材質数				引数1は0～GetPmdNum-1
-  _EXPORT	D3DMATERIAL9	ExpGetPmdMaterial(int, int);		// 引数1のPMDモデルの材質				引数1は0～GetPmdNum-1,引数2は0～GetPmdMatNum(引数1)-1
-  _EXPORT	int				ExpGetPmdBoneNum(int);			// 引数1のPMDモデルのボーン数			引数1は0～GetPmdNum-1
-  _EXPORT	char*			ExpGetPmdBoneName(int, int);		// 引数1のPMDモデルのボーン名			引数1は0～GetPmdNum-1,引数2は0～GetPmdBoneNum(引数1)-1
-  _EXPORT	D3DMATRIX		ExpGetPmdBoneWorldMat(int, int);	// 引数1のPMDﾓﾃﾞﾙのﾎﾞｰﾝのWorld行列(※2)	引数1は0～GetPmdNum-1,引数2は0～GetPmdBoneNum(引数1)-1
-  _EXPORT	int				ExpGetPmdMorphNum(int);			// 引数1のPMDモデルの表情数				引数1は0～GetPmdNum-1
-  _EXPORT	char*			ExpGetPmdMorphName(int, int);	// 引数1のPMDモデルの表情名				引数1は0～GetPmdNum-1,引数2は0～GetPmdMorphNum(引数1)-1
-  _EXPORT	float			ExpGetPmdMorphValue(int, int);	// 引数1のPMDモデルの表情値				引数1は0～GetPmdNum-1,引数2は0～GetPmdMorphNum(引数1)-1
-  _EXPORT	bool			ExpGetPmdDisp(int);				// 引数1のPMDモデルの表示状態(true:表示)引数1は0～GetPmdNum-1
-  _EXPORT	int				ExpGetPmdID(int);				// 引数1のPMDモデルID					引数1は0～GetPmdNum-1
+  _EXPORT	float			ExpGetFrameTime();				// Obtain frame time (sec) Time currently being processed with frame 0 as 0sec
+  _EXPORT	int				ExpGetPmdNum();					// Number of PMD models
+  _EXPORT	char*			ExpGetPmdFilename(int);			// PMD model file name of argument 1 (full path) Argument 1 is 0 to GetPmdNum-1
+  _EXPORT	int				ExpGetPmdOrder(int);			// PMD model drawing order of argument 1 (*1) Argument 1 is 0 to GetPmdNum-1
+  _EXPORT	int				ExpGetPmdMatNum(int);			// Number of materials in the PMD model with argument 1 Argument 1 is 0 to GetPmdNum-1
+  _EXPORT	D3DMATERIAL9	ExpGetPmdMaterial(int, int);		// Material of PMD model of argument 1 Argument 1 is 0 to GetPmdNum-1, argument 2 is 0 to GetPmdMatNum(argument 1)-1
+  _EXPORT	int				ExpGetPmdBoneNum(int);			// Number of bones in the PMD model with argument 1 Argument 1 is 0 to GetPmdNum-1
+  _EXPORT	char*			ExpGetPmdBoneName(int, int);		// Bone name of PMD model of argument 1 Argument 1 is 0 to GetPmdNum-1, argument 2 is 0 to GetPmdBoneNum(argument 1)-1
+  _EXPORT	D3DMATRIX		ExpGetPmdBoneWorldMat(int, int);	// World matrix of bones of PMD model with argument 1 (*2) Argument 1 is 0 to GetPmdNum-1, argument 2 is 0 to GetPmdBoneNum(argument 1)-1
+  _EXPORT	int				ExpGetPmdMorphNum(int);			// Number of facial expressions in the PMD model with argument 1 Argument 1 is 0 to GetPmdNum-1
+  _EXPORT	char*			ExpGetPmdMorphName(int, int);	// Facial expression name of PMD model of argument 1 Argument 1 is 0 to GetPmdNum-1, argument 2 is 0 to GetPmdMorphNum(argument 1)-1
+  _EXPORT	float			ExpGetPmdMorphValue(int, int);	// Expression value of PMD model of argument 1 Argument 1 is 0 to GetPmdNum-1, argument 2 is 0 to GetPmdMorphNum(argument 1)-1
+  _EXPORT	bool			ExpGetPmdDisp(int);				// Display status of PMD model of argument 1 (true: display) Argument 1 is 0 to GetPmdNum-1
+  _EXPORT	int				ExpGetPmdID(int);				// PMD model ID of argument 1 Argument 1 is 0 to GetPmdNum-1
 
-  _EXPORT	int				ExpGetAcsNum();					// アクセサリの数
-  _EXPORT	int				ExpGetPreAcsNum();				// モデルより前に描写されるアクセサリの数
-  _EXPORT	char*			ExpGetAcsFilename(int);			// 引数1のアクセファイル名(フルパス)	引数1は0～GetAcsNum-1
-  _EXPORT	int				ExpGetAcsOrder(int);			// 引数1のアクセ描画順番(※1)			引数1は0～GetAcsNum-1
-  _EXPORT	D3DMATRIX		ExpGetAcsWorldMat(int);			// 引数1のアクセのWorld行列(※2)		引数1は0～GetAcsNum-1
-  _EXPORT	float			ExpGetAcsX(int);				// 引数1のアクセの位置X(ｱｸｾﾊﾟﾈﾙのX)		引数1は0～GetAcsNum-1
-  _EXPORT	float			ExpGetAcsY(int);				// 引数1のアクセの位置Y(ｱｸｾﾊﾟﾈﾙのY)		引数1は0～GetAcsNum-1
-  _EXPORT	float			ExpGetAcsZ(int);				// 引数1のアクセの位置Z(ｱｸｾﾊﾟﾈﾙのZ)		引数1は0～GetAcsNum-1
-  _EXPORT	float			ExpGetAcsRx(int);				// 引数1のアクセの回転X(ｱｸｾﾊﾟﾈﾙのRx)	引数1は0～GetAcsNum-1
-  _EXPORT	float			ExpGetAcsRy(int);				// 引数1のアクセの回転Y(ｱｸｾﾊﾟﾈﾙのRy)	引数1は0～GetAcsNum-1
-  _EXPORT	float			ExpGetAcsRz(int);				// 引数1のアクセの回転Z(ｱｸｾﾊﾟﾈﾙのRz)	引数1は0～GetAcsNum-1
-  _EXPORT	float			ExpGetAcsSi(int);				// 引数1のアクセのサイズ(ｱｸｾﾊﾟﾈﾙのSi)	引数1は0～GetAcsNum-1
-  _EXPORT	float			ExpGetAcsTr(int);				// 引数1のアクセの透明度(ｱｸｾﾊﾟﾈﾙのTr)	引数1は0～GetAcsNum-1
-  _EXPORT	bool			ExpGetAcsDisp(int);				// 引数1のアクセの表示状態(true:表示)	引数1は0～GetAcsNum-1
-  _EXPORT	int				ExpGetAcsID(int);				// 引数1のアクセID						引数1は0～GetAcsNum-1
-  _EXPORT	int				ExpGetAcsMatNum(int);			// 引数1のアクセの材質数				引数1は0～GetAcsNum-1
-  _EXPORT	D3DMATERIAL9	ExpGetAcsMaterial(int, int);		// 引数1のアクセの材質					引数1は0～GetAcsNum-1,引数2は0～GetAcsMatNum(引数1)-1
+  _EXPORT	int				ExpGetAcsNum();					// number of accessories
+  _EXPORT	int				ExpGetPreAcsNum();				// Number of accessories depicted before model
+  _EXPORT	char*			ExpGetAcsFilename(int);			// Number 1 access file name (full path) Argument 1 is 0 to GetAcsNum-1
+  _EXPORT	int				ExpGetAcsOrder(int);			// Access drawing order of argument 1 (*1) Argument 1 is 0 to GetAcsNum-1
+  _EXPORT	D3DMATRIX		ExpGetAcsWorldMat(int);			// World matrix of accesses for argument 1 (*2) Argument 1 is 0 to GetAcsNum-1
+  _EXPORT	float			ExpGetAcsX(int);				// Argument 1 access position X (access panel X) Argument 1 is 0 to GetAcsNum-1
+  _EXPORT	float			ExpGetAcsY(int);				// Argument 1 access position Y (access panel Y) Argument 1 is 0 to GetAcsNum-1
+  _EXPORT	float			ExpGetAcsZ(int);				// Argument 1 access position Z (access panel Z) Argument 1 is 0 to GetAcsNum-1
+  _EXPORT	float			ExpGetAcsRx(int);				// Argument 1 Accessory rotation X (Access panel Rx) Argument 1 is 0 to GetAcsNum-1
+  _EXPORT	float			ExpGetAcsRy(int);				// Rotation Y of the accessory of argument 1 (Ry of the accessory panel) Argument 1 is 0 to GetAcsNum-1
+  _EXPORT	float			ExpGetAcsRz(int);				// Rotation Z of the accessory with argument 1 (Rz of the accessory panel) Argument 1 is 0 to GetAcsNum-1
+  _EXPORT	float			ExpGetAcsSi(int);				// Argument 1 access size (access panel Si) Argument 1 is 0 to GetAcsNum-1
+  _EXPORT	float			ExpGetAcsTr(int);				// Access transparency of argument 1 (Access panel Tr) Argument 1 is 0 to GetAcsNum-1
+  _EXPORT	bool			ExpGetAcsDisp(int);				// Access display status of argument 1 (true: display) Argument 1 is 0 to GetAcsNum-1
+  _EXPORT	int				ExpGetAcsID(int);				// Access ID of argument 1 Argument 1 is 0 to GetAcsNum-1
+  _EXPORT	int				ExpGetAcsMatNum(int);			// Access material number of argument 1 Argument 1 is 0 to GetAcsNum-1
+  _EXPORT	D3DMATERIAL9	ExpGetAcsMaterial(int, int);		// Accessory material of argument 1 Argument 1 is 0 to GetAcsNum-1, argument 2 is 0 to GetAcsMatNum(argument 1)-1
 
-  _EXPORT	int				ExpGetCurrentObject();			// 現在処理中のオブジェクト(※1)
-  _EXPORT	int				ExpGetCurrentMaterial();		// 現在処理中の材質(※３)
-  _EXPORT	int				ExpGetCurrentTechnic();			// 現在処理中のﾃｸﾆｯｸ(0:その他 1:通常描画（セルフシャドウOFF）2:通常描画（セルフシャドウON）
-                              // 3:影（非セルフシャドウのもの）4:エッジ 5:・セルフシャドウ用Zバッファプロット
-  _EXPORT	void			ExpSetRenderRepeatCount(int);	// レンダリング処理を引数1の回数繰り返す(※４)
-  _EXPORT	int				ExpGetRenderRepeatCount();		// レンダリング処理繰り返し数(※４)
-  _EXPORT	bool			ExpGetEnglishMode();			// 英語モードか否か(true:英語モード false:日本語モード)
+  _EXPORT	int				ExpGetCurrentObject();			// Object currently being processed (*1)
+  _EXPORT	int				ExpGetCurrentMaterial();		// Materials currently being processed (*3)
+  _EXPORT	int				ExpGetCurrentTechnic();			// Technique currently being processed (0: Other 1: Normal drawing (self-shadow OFF) 2: Normal drawing (self-shadow ON)
+                              // 3: Shadow (non-self-shadow) 4: Edge 5: Z-buffer plot for self-shadow
+  _EXPORT	void			ExpSetRenderRepeatCount(int);	// Repeat the rendering process the number of times argument 1 (*4)
+  _EXPORT	int				ExpGetRenderRepeatCount();		// Number of rendering processing repetitions (*4)
+  _EXPORT	bool			ExpGetEnglishMode();			// English mode or not (true: English mode false: Japanese mode)
 }
 
 #endif	// __MMDEXPORT_H__
 
 
 /*
-※1	描画順番について
+*1 Regarding drawing order
 
-MMDでは、
+In MMD,
 
-A.モデルより前に描画されるアクセサリ描写
-B.モデル描写
-C.モデルより後に描画されるアクセサリ描写
+A. Accessory depiction drawn before the model
+B. Model depiction
+C. Accessory depiction drawn after the model
 
-の順番で描写される。
+are depicted in this order.
 
-ExpGetPmdOrder,ExpGetAcsOrder,ExpGetCurrentObject関数では、ABC通し順の番号が返されるが、Aの値のみマイナスで返される
+The ExpGetPmdOrder, ExpGetAcsOrder, and ExpGetCurrentObject functions return numbers in ABC order, but only the value of A is returned as a negative value.
 
-例)ステージ.x negi.x 初音ミク.pmd 鏡音リン.pmd ライトB.x ライトR.x の順に描画される場合の
-  ExpGetPmdOrder,ExpGetAcsOrder,ExpGetCurrentObject関数の戻り値
+Example) When drawn in the following order: stage.x negi.x Hatsune Miku.pmd Kagamine Rin.pmd Light B.x Light R.x
+   Return value of ExpGetPmdOrder, ExpGetAcsOrder, ExpGetCurrentObject functions
 
-ステージ.x		-1
-negi.x			-2
-初音ミク.pmd	 3
-鏡音リン.pmd	 4
-ライトB.x		 5
-ライトR.x		 6
+stage.x -1
+negi.x -2
+hatsune miku.pmd 3
+Kagamine Rin.pmd 4
+Light B.x 5
+Light R.x 6
 
-ExpGetCurrentObjectでは、モデル・アクセサリ描画時以外は0を返します。
-ExpGetCurrentObjectでは、モデル・アクセサリ描画時は、影，エッジ，セルフシャドウ用Zバッファ時も上記値を返します。
-
-
-※2 world行列について
-MMDのカメラは、３Ｄ空間内では距離のみ移動して、オブジェクトが移動・回転する仕様になっています。
-つまりカメラの位置・回転によって、各オブジェクトのworld変換行列も変化してしまいます。
-エクスポート用関数のworld行列は、カメラの位置・回転要素を掛ける前の段階の値を出力するようにしました。
-ですので、D3DDevice->GetTransform(D3DTS_WORLD,&world)で得られるworld行列とは値が異なります。
-fx内で頂点計算にworld行列としてこの値を用いると、正確な位置に表示されませんので注意して下さい。
-
-ExpGetPmdBoneWorldMat:アクセサリがモデル追従になっている場合は、モデルのworld行列をすでに掛けた値となります。
+ExpGetCurrentObject returns 0 except when drawing models and accessories.
+ExpGetCurrentObject returns the above value when drawing models and accessories, and when using the Z buffer for shadows, edges, and self-shadows.
 
 
-※３ ExpGetCurrentMaterialの戻り値について
-影，エッジ，セルフシャドウ用Zバッファ処理時も値を返します。
-ただし上記の場合、実際にはすべての材質は無視され単一のマテリアルでレンダリングされますが、
-ExpGetCurrentMaterialの戻り値は通常描画時であった場合の材質番号を返します。
+*2 About the world matrix
+The MMD camera is designed to only move distance in 3D space, and objects can move and rotate.
+In other words, the world transformation matrix of each object changes depending on the position and rotation of the camera.
+The world matrix of the export function now outputs the value before it is multiplied by the camera position and rotation factors.
+Therefore, the value is different from the world matrix obtained by D3DDevice->GetTransform(D3DTS_WORLD,&world).
+Please note that if you use this value as the world matrix for vertex calculation in fx, it will not be displayed in the correct position.
+
+ExpGetPmdBoneWorldMat: If the accessory is model-following, it will be the value already multiplied by the model's world matrix.
 
 
-※４ ExpSetRenderRepeatCountについて
-ExpSetRenderRepeatCountはMMD内部の変数、ExRepeatの値を設定します。
-ExpGetRenderRepeatCountはExRepeatの値を取得します。
-1フレームのおおまかなシーケンスは以下の通りです。
+*3 About the return value of ExpGetCurrentMaterial
+A value is also returned when processing the Z buffer for shadows, edges, and self-shadows.
+However, in the above case, all materials are actually ignored and rendered with a single material, but
+The return value of ExpGetCurrentMaterial returns the material number when drawing normally.
+
+
+*4 About ExpSetRenderRepeatCount
+ExpSetRenderRepeatCount sets the value of the MMD internal variable ExRepeat.
+ExpGetRenderRepeatCount gets the value of ExRepeat.
+The rough sequence of one frame is as follows.
 
 {
-  ***ワールド行列等設定***
-  ***サーフェス・Zバッファのクリア***
+   ***World matrix settings***
+   ***Clear surface/Z buffer***
 
-  ExRepeat=1;
-    if( SUCCEEDED( Dx3d->lpDevice->BeginScene() ) )
-    {
-    ***セルフシャドウ用Zバッファ描写***
+   ExRepeat=1;
+     if( SUCCEEDED( Dx3d->lpDevice->BeginScene() ) )
+     {
+     ***Z-buffer depiction for self-shadow***
 
-    while(ExRepeat>0){
-      ExRepeat--;
-      ***モデル・アクセサリ関連のレンダリング処理***
-    }
+     while(ExRepeat>0){
+       ExRepeat--;
+       ***Rendering processing related to models and accessories***
+     }
 
-    ***画面キャプチャ処理(スクリーン処理用)***
-    ***文字やボーン線、物理剛体(表示時)や各種スプライト表示処理(AVI出力時は省略)***
+     ***Screen capture processing (for screen processing)***
+     ***Text, bone line, physical rigid body (when displayed) and various sprite display processing (omitted when outputting AVI)***
 
-    Dx3d->lpDevice->EndScene();
-  }
+     Dx3d->lpDevice->EndScene();
+   }
 
-  ***AVI出力処理(AVI出力時)***
-  ***次フレームのボーン計算***
-  ***物理演算計算***
-  ***モデルの頂点移動***
-  ***キー入力処理等***
+   ***AVI output processing (when outputting AVI)***
+   ***Bone calculation for next frame***
+   ***Physical calculation***
+   ***Moving model vertices***
+   ***Key input processing, etc.***
 
-  Dx3d->lpDevice->Present();
+   Dx3d->lpDevice->Present();
 
-  ***デバイスロスト時復帰処理***
+   ***Recovery process when device is lost***
 }
 
-DirectXでは１つのPresent()に対し、一対のBeginScene()/EndScene()しか使えないため
-(対ごとにレンダリングターゲットが異なる場合は複数の対でも良い)、上記構成にしました。
+In DirectX, only a pair of BeginScene()/EndScene() can be used for one Present().
+(Multiple pairs may be used if the rendering target is different for each pair), and the above configuration was used.
 
-ExpSetRenderRepeatCount()は、
-・はじめに、BeginScene()をフックした関数内でリピート回数を設定してしまう( ExpSetRenderRepeatCount(n) )
-・fxレンダリング処理中に必要に応じてExpSetRenderRepeatCount(1)を送信することにより、更にもう一回の
- ***モデル・アクセサリ関連のレンダリング処理***ターンを発生させる
+ExpSetRenderRepeatCount() is
+・First, set the repeat count in the function that hooks BeginScene() ( ExpSetRenderRepeatCount(n) )
+・By sending ExpSetRenderRepeatCount(1) as necessary during the fx rendering process, one more
+  ***Rendering processing related to models and accessories***Generate a turn
 
-という使い方ができます(多分)。
+You can use it as (probably).
 
 
-***モデル・アクセサリ関連のレンダリング処理***のシーケンス
+***Rendering processing related to models and accessories*** sequence
 {
-  ***背景BMP用スプライト描写***
-  ***背景AVI用スプライト描写***
-  ***座標軸描写***
-  ***床描写(透明)***
-  ***モデルより前に描写されるアクセサリ一式描写***
-  ***地面影描写***{
-    アクセサリ一式		// ExpGetAcsOrderの順とは限らない
-    モデル一式
-  }
-  ***モデル一式描写***
-  ***エッジ一式描写***
-  ***モデルより後に描写されるアクセサリ一式描写***
+   ***Sprite depiction for background BMP***
+   ***Sprite depiction for background AVI***
+   ***Coordinate axis depiction***
+   ***Floor depiction (transparent)***
+   ***Accessories set depicted before model***
+   ***Ground shadow depiction***{
+     Complete set of accessories // Not necessarily in the order of ExpGetAcsOrder
+     complete model
+   }
+   ***Complete model representation***
+   ***Edge set depiction***
+   ***A complete set of accessories depicted after the model***
 }
 */
 
 
 /*
-更新履歴
+Change log
 Ver.0.08 (2013/06/30)
-・ExpGetEnglishMode関数を追加(true時英語モード)
+- Added ExpGetEnglishMode function (English mode when true)
 
 Ver.0.07 (2010/10/22)
 ・ExpGetCurrentMaterial()のバグ修正
 
 Ver.0.06 (2010/10/21)
-・ExpGetPmdOrder(),ExpGetCurrentObject()のバグ修正
+- Bug fixes for ExpGetPmdOrder() and ExpGetCurrentObject()
 
 Ver.0.05 (2010/10/07)
-・ExpGetRenderRepeatCount関数を追加
-・レンダリングループからセルフシャドウ用Zバッファ描写を外す
+- Added ExpGetRenderRepeatCount function
+・Remove Z-buffer depiction for self-shadow from the rendering loop
 
 Ver.0.04 (2010/10/06)
-・以下の関数を追加
-  ExpGetCurrentTechnic,ExpSetRenderRepeatCount
-・ExpGetCurrentObject,ExpGetCurrentMaterialの戻り値を、影・エッジ描画時および
- セルフシャドウ用Zバッファプロット時にも、処理中のオブジェクト番号＆材質番号が返る仕様に変更
-・MMDメニューでセルフシャドウoff時にExpGetCurrentObject,ExpGetCurrentMaterialの値が返らないバグ修正
+- Added the following functions
+   ExpGetCurrentTechnic,ExpSetRenderRepeatCount
+・The return values of ExpGetCurrentObject and ExpGetCurrentMaterial are used when drawing shadows and edges.
+  Changed the specification so that the object number and material number being processed are returned even when plotting Z buffer for self-shadow.
+・Fixed a bug where ExpGetCurrentObject and ExpGetCurrentMaterial values were not returned when self-shadow was turned off in the MMD menu.
 
 Ver.0.03 (2010/09/29)
-・以下の関数を追加
+・Add the following functions
   ExpGetPmdBoneNum,ExpGetPmdBoneName,ExpGetPmdBoneWorldMat,ExpGetPmdMorphNum,ExpGetPmdMorphName,
   ExpGetPmdMorphValue,ExpGetPmdDisp,ExpGetPmdID,ExpGetAcsDisp,ExpGetAcsID,ExpGetAcsMatNum,
   ExpGetAcsMaterial,ExpGetCurrentMaterial
-・ExpGetCurrentObjectの戻り値を、アクセ・モデル時以外を0になるよう変更
+・Changed the return value of ExpGetCurrentObject to 0 except when accessing model.
 
 Ver.0.02 (2010/09/28)
-・EXPORT定義をectern "C"で囲む
+・Wrap EXPORT definition in extern "C"
 
 */

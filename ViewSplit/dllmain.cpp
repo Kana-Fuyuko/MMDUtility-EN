@@ -1,4 +1,4 @@
-﻿// dllmain.cpp : DLL アプリケーションのエントリ ポイントを定義します。
+﻿// dllmain.cpp : DLL Define the entry point for your application.
 #include "stdafx.h"
 #include "../MMDUtility/mmdplugin/mmd_plugin.h"
 #include <d3dx9.h>

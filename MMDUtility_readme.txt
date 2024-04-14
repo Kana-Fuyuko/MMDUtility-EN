@@ -1,21 +1,21 @@
-﻿＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
-  ソフト名： MMDUtility
-    作成者： おいがみ
-  転載条件： MMDUtility 本体の転載は、非商用に限り連絡不要です。
-  使用条件： MMDUtilityを使用することや、使用して作成した作品については、
-             商用、非商用問わず制限はありません。
-　  連絡先： twitter： https://twitter.com/oigami013
-              github： https://github.com/oigami/MMDUtility/issues
-開発サイト： github： https://github.com/oigami/MMDUtility/
+   Software name: MMDUtility
+   Creator: Oigami
+   Reproduction conditions: Reproduction of MMDUtility itself is limited to non-commercial use and no contact is required.
+   Terms of Use: Regarding the use of MMDUtility and the works created using it,
+                 There are no restrictions for commercial or non-commercial use.
+Contact: twitter: https://twitter.com/oigami013
+         github: https://github.com/oigami/MMDUtility/issues
+Development site: github: https://github.com/oigami/MMDUtility/
 
-＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
-・インストール方法
+・Installation method
 https://github.com/oigami/MMDUtility/wiki/how_to_install
 
-・更新履歴
+·Change log
 Ver 0.10
-  emmファイルの自動バックアップ時に上限を超えても過去のファイルが削除されない不具合を修正
+   Fixed a bug where past files were not deleted even if the limit was exceeded during automatic backup of emm files.
 Ver 0.09
-  MMEのemmファイルも自動バックアップするように変更
+   Changed to automatically backup MME emm file.

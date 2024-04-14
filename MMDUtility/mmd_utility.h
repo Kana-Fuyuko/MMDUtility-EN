@@ -1,5 +1,5 @@
 ﻿#pragma once
-// MMDUtility.cpp : DLL アプリケーション用にエクスポートされる関数を定義します。
+// MMDUtility.cpp : DLL Define exported functions for your application.
 //
 
 #include "stdafx.h"

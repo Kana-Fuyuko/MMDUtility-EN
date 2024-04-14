@@ -1,8 +1,8 @@
-﻿// stdafx.cpp : 標準インクルード HideModel.pch のみを
-// 含むソース ファイルは、プリコンパイル済みヘッダーになります。
-// stdafx.obj にはプリコンパイル済み型情報が含まれます。
+// stdafx.cpp: only standard include HideModel.pch
+// The containing source file becomes a precompiled header.
+// stdafx.obj contains precompiled type information.
 
 #include "stdafx.h"
 
-// TODO: このファイルではなく、STDAFX.H で必要な
-// 追加ヘッダーを参照してください。
+// TODO: Required in STDAFX.H, not in this file
+// See additional headers.

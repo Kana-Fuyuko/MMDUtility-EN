@@ -1,4 +1,4 @@
-﻿// dllmain.cpp : DLL アプリケーションのエントリ ポイントを定義します。
+﻿// dllmain.cpp : Defines the entry point for a DLL application.
 #include "stdafx.h"
 HMODULE g_module;
 

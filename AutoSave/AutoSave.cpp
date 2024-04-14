@@ -1,4 +1,4 @@
-﻿// AutoSave.cpp : DLL アプリケーション用にエクスポートされる関数を定義します。
+// AutoSave.cpp: Defines exported functions for DLL applications.
 //
 
 #include "stdafx.h"
@@ -15,10 +15,10 @@ namespace filesystem = std::experimental::filesystem;
 using char8 = std::int8_t;
 extern HMODULE g_module;
 static_assert(sizeof(float) == 4, "");
-#pragma pack(push, 1) // アライメント1に設定
+#pragma pack(push, 1) // Set to alignment 1
 struct PMMFile
 {
-  /* ヘッダ */
+  /* header */
   char8 format_ID[30];
   std::int32_t view_width;
   std::int32_t view_height;
@@ -26,7 +26,7 @@ struct PMMFile
   float edit_view_angle;
   BYTE __unknown10[7];
 
-  /* モデル */
+  /* model */
 
   BYTE model_count;
 
@@ -43,7 +43,7 @@ struct PMMFile
     std::vector<std::string> morph_name; // [morph_count]
     std::int32_t ik_count;
     std::vector<std::int32_t> ik_index; // [ik_count]
-    std::int32_t op_count; // 外部親設定
+    std::int32_t op_count; // external parent settings
     std::vector<std::int32_t> op_index; // [op_count]
     BYTE draw_order;
     BYTE edit_is_display;
@@ -145,7 +145,7 @@ struct PMMFile
 
     std::vector<OPCurrentData> op_current_data; // [op_count]
 
-    BYTE is_blend; // 加算合成
+    BYTE is_blend; // additive synthesis
     float edge_width;
     BYTE is_self_shadow_enabled;
     BYTE calc_order;
@@ -153,7 +153,7 @@ struct PMMFile
 
   std::vector<ModelData> model_data; // [model_count]
 
-  /* カメラ */
+  /* camera */
 
   struct CameraInitFrame
   {
@@ -163,7 +163,7 @@ struct PMMFile
     std::int32_t distance;
     float eye_position[3];
     float rotation[3];
-    std::int32_t looking_model_index; // 非選択時-1
+    std::int32_t looking_model_index; // -1 when not selected
     std::int32_t looking_bone_index;
     BYTE interpolation_x[4];
     BYTE interpolation_y[4];
@@ -196,7 +196,7 @@ struct PMMFile
 
   CameraCurrentData camera_current_data;
 
-  /* ライティング */
+  /* lighting */
   struct LightInitFrame
   {
     std::int32_t frame_number;
@@ -227,7 +227,7 @@ struct PMMFile
   LightCurrentData light_current_data;
 
 
-  /* アクセサリ */
+  /* accessory */
   BYTE select_accessory_index;
   std::int32_t vscroll;
   BYTE accessory_count;
@@ -276,7 +276,7 @@ struct PMMFile
 
     DataBody accessory_current_data;
 
-    BYTE is_blend; // 加算合成
+    BYTE is_blend; // additive synthesis
   };
 
   std::vector<AccData> accessory_data; // [accessory_count]
@@ -308,7 +308,7 @@ struct PMMFile
   std::int32_t avi_offset_y;
   float avi_scale;
   char8 avi_path[256];
-  std::int32_t is_show_avi; // 1で表示、それ以外は非表示
+  std::int32_t is_show_avi; // Show if 1, otherwise hide
 
   std::int32_t bgimage_offset_x;
   std::int32_t bgimage_offset_y;
@@ -326,7 +326,7 @@ struct PMMFile
   BYTE is_transparent_ground_shadow;
   BYTE physics_mode;
 
-  /* 重力 */
+  /* gravity */
   struct GravityCurrentData
   {
     float acceleration;
@@ -480,9 +480,9 @@ public:
     auto mmd = mmp::getMMDMainData();
     if(mmd->pmm_path[0]=='\0')
     {
-      MessageBoxW(getHWND(), LR"(現在編集中のデータはpmmファイルに保存されていないので自動バックアップできません。
-新規作業中でも名前をつけて保存することを推奨します。
-このメッセージは自動バックアップのタイミングで毎回表示されます。)", L"警告", MB_OK);
+      MessageBoxW(getHWND(), LR"(The data currently being edited is not saved in the pmm file, so it cannot be backed up automatically.
+We recommend that you save the file with a new name even if you are working on a new file.
+This message will be displayed every time an automatic backup is performed.)", L"Warning", MB_OK);
       return;
     }
     auto save_func = (void(*)(mmp::MMDMainData*))((char*) GetModuleHandleW(nullptr) + 0x750D0);
@@ -526,7 +526,7 @@ public:
       {
         save();
       };
-    menu->AppendChild(L"保存", save_menu);
+    menu->AppendChild(L"Keep", save_menu);
     menu->AppendSeparator();
   }
 
@@ -577,7 +577,7 @@ namespace
       int len = swprintf_s(buf, L"_%d-%02d-%02d_%02d-%02d-%02d.pmm", now->tm_year + 1900, now->tm_mon + 1, now->tm_mday, now->tm_hour, now->tm_min, now->tm_sec);
       save_path /= fname;
       save_path.concat(buf, buf + len);
-      // mme がここをフックしてemmを保存してるのでただ開いて閉じることで対応
+      // mme hooks here and saves emm, so just open and close it.
       int tmp;
       f_wsopen_s(&tmp, save_path.wstring().c_str(), oflag, shflag, pmode);
       f_close(tmp);
@@ -585,7 +585,7 @@ namespace
       ofs.rdbuf()->pubsetbuf(save_buf, sizeof(save_buf));
       if ( ofs.is_open() == false )
       {
-        MessageBoxW(nullptr, L"保存ファイルの作成に失敗しました", L"MMDUtility AutoSave", MB_OK);
+        MessageBoxW(nullptr, L"Failed to create save file", L"MMDUtility AutoSave", MB_OK);
       }
       save_writer = std::move(ofs);
       return 0;

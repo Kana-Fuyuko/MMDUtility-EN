@@ -1,4 +1,4 @@
-﻿// InterpolationCurvePalette.cpp : DLL アプリケーション用にエクスポートされる関数を定義します。
+﻿// InterpolationCurvePalette.cpp : Defines exported functions for DLL applications.
 //
 
 #include "stdafx.h"
@@ -124,7 +124,7 @@ public:
             ShowWindow(window_handle_, SW_HIDE);
           }
         };
-      menu->AppendChild(L"補間曲線パレット", palette_menu_);
+      menu->AppendChild(L"Interpolation Curve Palette", palette_menu_);
     }
     menu->AppendSeparator();
 

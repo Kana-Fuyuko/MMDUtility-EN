@@ -322,7 +322,7 @@ public:
     {
       filesystem::create_directories(path);
     }
-    SendMessage(menu, CB_ADDSTRING, 0, (LPARAM) L"デフォルト");
+    SendMessage(menu, CB_ADDSTRING, 0, (LPARAM) L"Default");
     for ( filesystem::directory_iterator it(path), last; it != last; ++it )
     {
       SendMessage(menu, CB_ADDSTRING, 0, (LPARAM) it->path().filename().c_str());
